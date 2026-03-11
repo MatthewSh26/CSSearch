@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  tgId      String   @unique
+  username  String?
+  locale    String?
+  createdAt DateTime @default(now())
+  lastSeen  DateTime @updatedAt
+
+  profile      PlayerProfile?
+  preferences  Preferences?
+  swipesFrom   Swipe[]   @relation("SwipesFrom")
+  swipesTo     Swipe[]   @relation("SwipesTo")
+  matchesA     Match[]   @relation("MatchesA")
+  matchesB     Match[]   @relation("MatchesB")
+  gameStats    GameStats?
+}
+
+enum Game {
+  CS2
+  FACEIT
+}
+
+enum Role {
+  IGL
+  AWPER
+  RIFLER
+  SUPPORT
+  FLEX
+}
+
+model PlayerProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id])
+
+  nickname     String
+  mainGame     Game
+  faceitLevel  Int?
+  cs2Rank      String?
+  primaryRole  Role?
+
+  languages    String[]
+  region       String
+  timeZone     String?
+  playSchedule String?
+  voiceComms   String?
+  bio          String?
+
+  avatarUrl    String?
+  bannerUrl    String?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Preferences {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+
+  games           Game[]
+  minFaceit       Int?
+  maxFaceit       Int?
+  acceptableRanks String[]
+
+  preferredRoles  Role[]
+  regions         String[]
+  languages       String[]
+
+  playTimeWindows String?
+
+  competitiveLevel Int @default(50)
+  showInSearch     Boolean @default(true)
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Swipe {
+  id         String   @id @default(cuid())
+  fromUserId String
+  toUserId   String
+  fromUser   User     @relation("SwipesFrom", fields: [fromUserId], references: [id])
+  toUser     User     @relation("SwipesTo", fields: [toUserId], references: [id])
+
+  direction  SwipeDirection
+  source     SwipeSource
+
+  createdAt  DateTime @default(now())
+
+  @@unique([fromUserId, toUserId])
+}
+
+enum SwipeDirection {
+  LIKE
+  DISLIKE
+}
+
+enum SwipeSource {
+  DISCOVER
+  SEARCH
+  RECOMMENDATION
+}
+
+model Match {
+  id        String     @id @default(cuid())
+  userAId   String
+  userBId   String
+  userA     User       @relation("MatchesA", fields: [userAId], references: [id])
+  userB     User       @relation("MatchesB", fields: [userBId], references: [id])
+
+  status    MatchStatus @default(ACTIVE)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([userAId, userBId])
+}
+
+enum MatchStatus {
+  ACTIVE
+  BLOCKED
+  ARCHIVED
+}
+
+model GameStats {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+
+  game          Game
+  kdRatio       Float?
+  winRate       Float?
+  matchesPlayed Int?
+  lastRank      String?
+
+  rawJson       String?
+
+  updatedAt     DateTime @updatedAt
+}

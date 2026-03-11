@@ -1,0 +1,152 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  background-color: #050816;
+  color: #f5f5f5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.gm-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+  color: #f5f5f5;
+}
+
+.gm-content {
+  flex: 1;
+  padding: 16px;
+  padding-bottom: 72px; /* leave space for bottom tabs */
+  box-sizing: border-box;
+}
+
+.gm-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.gm-screen {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.gm-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.gm-subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.gm-tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.gm-tab {
+  flex: 1;
+  padding: 10px 0;
+  margin: 0 4px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: rgba(148, 163, 184, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.gm-tab-active {
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  color: #ffffff;
+}
+
+.gm-card {
+  border-radius: 20px;
+  padding: 14px 16px;
+  background: radial-gradient(circle at top left, #1f2937 0, #020617 60%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.65);
+}
+
+.gm-card-row {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 12px;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.gm-label {
+  color: rgba(148, 163, 184, 0.95);
+}
+
+.gm-value {
+  color: #e5e7eb;
+  font-weight: 500;
+  text-align: right;
+}
+
+.gm-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.gm-button,
+.gm-button-secondary {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.15s ease;
+}
+
+.gm-button {
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(248, 113, 113, 0.45);
+}
+
+.gm-button-secondary {
+  background: rgba(15, 23, 42, 0.9);
+  color: rgba(248, 250, 252, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.gm-button:active,
+.gm-button-secondary:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.gm-empty {
+  justify-content: center;
+}
+
