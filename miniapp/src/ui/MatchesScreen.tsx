@@ -1,63 +1,64 @@
 import React from 'react';
+import { translations, type Lang } from './translations';
 
 type Match = {
   id: number;
-  name: string;
-  game: string;
-  role: string;
+  nickname: string;
+  elo: number;
   language: string;
+  note: string;
 };
 
 const MOCK_MATCHES: Match[] = [
   {
     id: 1,
-    name: 'Nova',
-    game: 'Valorant',
-    role: 'Controller',
-    language: 'EN',
+    nickname: 'frost_',
+    elo: 1842,
+    language: 'EN / RU',
+    note: 'IGL, evenings. Ready to queue.',
   },
   {
     id: 2,
-    name: 'Rex',
-    game: 'CS2',
-    role: 'AWPer',
-    language: 'EN / DE',
+    nickname: 'vex_',
+    elo: 2156,
+    language: 'RU',
+    note: 'AWPer. Prefer late-night.',
   },
 ];
 
-export const MatchesScreen: React.FC = () => {
+type Props = {
+  lang: Lang;
+};
+
+export const MatchesScreen: React.FC<Props> = ({ lang }) => {
+  const t = translations[lang].matches;
   return (
     <div className="gm-screen">
-      <h2 className="gm-title">Твои матчи</h2>
-      <p className="gm-subtitle">
-        Здесь будут появляться совпадения и переходы в Telegram.
-      </p>
+      <h2 className="gm-title">{t.title}</h2>
+      <p className="gm-subtitle">{t.subtitle}</p>
 
       {MOCK_MATCHES.map((match) => (
         <div key={match.id} className="gm-card">
           <div className="gm-card-row">
-            <span className="gm-label">Имя</span>
-            <span className="gm-value">{match.name}</span>
+            <span className="gm-label">{t.nickname}</span>
+            <span className="gm-value">{match.nickname}</span>
           </div>
           <div className="gm-card-row">
-            <span className="gm-label">Игра</span>
-            <span className="gm-value">{match.game}</span>
+            <span className="gm-label">{t.elo}</span>
+            <span className="gm-value">{match.elo}</span>
           </div>
           <div className="gm-card-row">
-            <span className="gm-label">Роль</span>
-            <span className="gm-value">{match.role}</span>
-          </div>
-          <div className="gm-card-row">
-            <span className="gm-label">Язык</span>
+            <span className="gm-label">{t.language}</span>
             <span className="gm-value">{match.language}</span>
+          </div>
+          <div className="gm-card-row">
+            <span className="gm-label">{t.note}</span>
+            <span className="gm-value">{match.note}</span>
           </div>
 
           <div className="gm-actions">
-            <button
-              type="button"
-              className="gm-button"
-            >
-              Открыть Telegram
+            <button type="button" className="gm-button">
+              {t.openTelegram}
             </button>
           </div>
         </div>
@@ -65,4 +66,3 @@ export const MatchesScreen: React.FC = () => {
     </div>
   );
 };
-

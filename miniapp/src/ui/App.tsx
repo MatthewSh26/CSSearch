@@ -4,6 +4,8 @@ import { OnboardingScreen } from './OnboardingScreen';
 import { DiscoverScreen } from './DiscoverScreen';
 import { MatchesScreen } from './MatchesScreen';
 import { ProfileScreen } from './ProfileScreen';
+import { LangToggle } from './LangToggle';
+import { translations, type Lang } from './translations';
 
 type Tab = 'discover' | 'matches' | 'profile';
 
@@ -11,6 +13,7 @@ export const App: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
   const [isOnboarding, setIsOnboarding] = useState(true);
   const [tab, setTab] = useState<Tab>('discover');
+  const [lang, setLang] = useState<Lang>('ru');
 
   useEffect(() => {
     initTelegramSdk()
@@ -23,9 +26,10 @@ export const App: React.FC = () => {
   }, []);
 
   if (!isReady) {
+    const t = translations[lang];
     return (
       <div className="gm-root">
-        <div className="gm-center">Загрузка GGMatch...</div>
+        <div className="gm-center">{t.loading}</div>
       </div>
     );
   }
@@ -35,21 +39,25 @@ export const App: React.FC = () => {
       <div className="gm-root">
         <div className="gm-content">
           <OnboardingScreen
-            onComplete={() => {
-              setIsOnboarding(false);
-            }}
+            lang={lang}
+            setLang={setLang}
+            onComplete={() => setIsOnboarding(false)}
           />
         </div>
       </div>
     );
   }
 
+  const t = translations[lang];
   return (
     <div className="gm-root">
       <div className="gm-content">
-        {tab === 'discover' && <DiscoverScreen />}
-        {tab === 'matches' && <MatchesScreen />}
-        {tab === 'profile' && <ProfileScreen />}
+        <div className="gm-header-row">
+          <LangToggle lang={lang} setLang={setLang} />
+        </div>
+        {tab === 'discover' && <DiscoverScreen lang={lang} />}
+        {tab === 'matches' && <MatchesScreen lang={lang} />}
+        {tab === 'profile' && <ProfileScreen lang={lang} />}
       </div>
 
       <nav className="gm-tabs">
@@ -57,19 +65,19 @@ export const App: React.FC = () => {
           className={tab === 'discover' ? 'gm-tab gm-tab-active' : 'gm-tab'}
           onClick={() => setTab('discover')}
         >
-          Поиск
+          {t.tabs.discover}
         </button>
         <button
           className={tab === 'matches' ? 'gm-tab gm-tab-active' : 'gm-tab'}
           onClick={() => setTab('matches')}
         >
-          Матчи
+          {t.tabs.matches}
         </button>
         <button
           className={tab === 'profile' ? 'gm-tab gm-tab-active' : 'gm-tab'}
           onClick={() => setTab('profile')}
         >
-          Профиль
+          {t.tabs.profile}
         </button>
       </nav>
     </div>

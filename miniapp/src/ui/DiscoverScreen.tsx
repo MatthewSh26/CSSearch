@@ -1,102 +1,152 @@
 import React, { useState } from 'react';
+import { translations, type Lang } from './translations';
 
 type Player = {
   id: number;
-  name: string;
-  age: number;
-  game: string;
-  role: string;
+  nickname: string;
+  elo: number;
+  csHours: number;
   language: string;
-  rank: string;
+  playStyle: string;
   bio: string;
+  playTime: string;
 };
 
 const MOCK_PLAYERS: Player[] = [
   {
     id: 1,
-    name: 'Lina',
-    age: 23,
-    game: 'Valorant',
-    role: 'Duelist',
-    language: 'EN',
-    rank: 'Immortal 2',
-    bio: 'Агрессивный энтри, ищу слаженный состав на 5.',
+    nickname: 'frost_',
+    elo: 1842,
+    csHours: 2100,
+    language: 'EN / RU',
+    playStyle: 'IGL, structured defaults',
+    bio: 'Looking for a steady 5-stack for Faceit. Prefer mid-round calls and clear roles.',
+    playTime: 'evenings',
   },
   {
     id: 2,
-    name: 'Alex',
-    age: 27,
-    game: 'CS2',
-    role: 'IGL',
-    language: 'EN / RU',
-    rank: 'Faceit 7',
-    bio: 'Спокойный каллер, люблю структурированные дефолты и решения в середине раунда.',
+    nickname: 'vex_',
+    elo: 2156,
+    csHours: 3400,
+    language: 'RU',
+    playStyle: 'AWPer, aggressive',
+    bio: 'AWP main. Want teammates who play for picks and don’t overrotate.',
+    playTime: 'nights',
   },
   {
     id: 3,
-    name: 'Mia',
-    age: 21,
-    game: 'League of Legends',
-    role: 'Support',
+    nickname: 'nova_cs',
+    elo: 1650,
+    csHours: 1200,
     language: 'EN',
-    rank: 'Diamond 1',
-    bio: 'Руминг саппорт, люблю контроль карты и проактивную игру.',
+    playStyle: 'Support, lurk',
+    bio: 'Support player, good at trading and late-round. Learning IGL basics.',
+    playTime: 'daytime',
+  },
+  {
+    id: 4,
+    nickname: 's1mple_fan_99',
+    elo: 1990,
+    csHours: 2800,
+    language: 'EN / UA',
+    playStyle: 'Entry, rifler',
+    bio: 'Entry fragger. Need a team that commits to executes and doesn’t bait.',
+    playTime: 'evenings',
+  },
+  {
+    id: 5,
+    nickname: 'cold_',
+    elo: 1780,
+    csHours: 1900,
+    language: 'RU / EN',
+    playStyle: 'Rifler, anchor',
+    bio: 'Anchor on CT. Prefer disciplined holds and clean retakes.',
+    playTime: 'nights',
   },
 ];
 
-export const DiscoverScreen: React.FC = () => {
+const PLAY_TIME_KEYS = {
+  evenings: { ru: 'вечером', en: 'evenings' },
+  nights: { ru: 'ночью', en: 'nights' },
+  daytime: { ru: 'днём', en: 'daytime' },
+} as const;
+
+type Props = {
+  lang: Lang;
+};
+
+export const DiscoverScreen: React.FC<Props> = ({ lang }) => {
   const [index, setIndex] = useState(0);
+  const t = translations[lang];
+  const d = t.discover;
+  const e = t.discoverEmpty;
 
   const hasMore = index < MOCK_PLAYERS.length;
   const current = hasMore ? MOCK_PLAYERS[index] : null;
 
-  const goNext = () => {
-    setIndex((prev) => prev + 1);
-  };
+  const goNext = () => setIndex((prev) => prev + 1);
+  const startOver = () => setIndex(0);
+
+  const playTimeLabel =
+    current &&
+    PLAY_TIME_KEYS[current.playTime as keyof typeof PLAY_TIME_KEYS]
+      ? PLAY_TIME_KEYS[current.playTime as keyof typeof PLAY_TIME_KEYS][lang]
+      : current?.playTime;
 
   if (!current) {
     return (
-      <div className="gm-screen gm-empty">
-        <h2 className="gm-title">Игроки пока закончились</h2>
-        <p className="gm-subtitle">
-          Загляни позже — появятся новые тиммейты.
-        </p>
+      <div className="gm-screen gm-empty-state">
+        <div className="gm-empty-visual" aria-hidden>
+          <div className="gm-empty-circle gm-empty-circle-1" />
+          <div className="gm-empty-circle gm-empty-circle-2" />
+          <div className="gm-empty-circle gm-empty-circle-3" />
+          <div className="gm-empty-line gm-empty-line-1" />
+          <div className="gm-empty-line gm-empty-line-2" />
+          <div className="gm-empty-line gm-empty-line-3" />
+        </div>
+        <h2 className="gm-title">{e.title}</h2>
+        <p className="gm-subtitle">{e.subtitle}</p>
+        <div className="gm-actions">
+          <button type="button" className="gm-button" onClick={startOver}>
+            {e.startOver}
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="gm-screen">
-      <h2 className="gm-title">Найди тиммейтов</h2>
-      <p className="gm-subtitle">
-        Здесь будут появляться карточки игроков.
-      </p>
+      <h2 className="gm-title">{d.title}</h2>
+      <p className="gm-subtitle">{d.subtitle}</p>
 
-      <div className="gm-card">
+      <div className="gm-card gm-discover-card">
         <div className="gm-card-row">
-          <span className="gm-label">Имя</span>
-          <span className="gm-value">
-            {current.name}, {current.age}
-          </span>
+          <span className="gm-label">{d.nickname}</span>
+          <span className="gm-value">{current.nickname}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Игра</span>
-          <span className="gm-value">{current.game}</span>
+          <span className="gm-label">{d.elo}</span>
+          <span className="gm-value">{current.elo}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Роль</span>
-          <span className="gm-value">{current.role}</span>
+          <span className="gm-label">{d.csHours}</span>
+          <span className="gm-value">{current.csHours}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Язык</span>
+          <span className="gm-label">{d.language}</span>
           <span className="gm-value">{current.language}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Ранг</span>
-          <span className="gm-value">{current.rank}</span>
+          <span className="gm-label">{d.playStyle}</span>
+          <span className="gm-value">{current.playStyle}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">О себе</span>
+          <span className="gm-label">{d.plays}</span>
+          <span className="gm-value">{playTimeLabel}</span>
+        </div>
+        <div className="gm-card-row gm-card-row-bio">
+          <span className="gm-label">{d.about}</span>
           <span className="gm-value">{current.bio}</span>
         </div>
       </div>
@@ -107,17 +157,12 @@ export const DiscoverScreen: React.FC = () => {
           className="gm-button-secondary"
           onClick={goNext}
         >
-          Пропустить
+          {d.skip}
         </button>
-        <button
-          type="button"
-          className="gm-button"
-          onClick={goNext}
-        >
-          Лайк
+        <button type="button" className="gm-button" onClick={goNext}>
+          {d.like}
         </button>
       </div>
     </div>
   );
 };
-
