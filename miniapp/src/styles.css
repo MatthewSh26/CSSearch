@@ -72,7 +72,7 @@ body {
 .gm-screen {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  row-gap: 14px;
 }
 
 .gm-title {
@@ -87,6 +87,18 @@ body {
   font-size: 14px;
   color: rgba(226, 232, 240, 0.7);
   line-height: 1.4;
+}
+
+.gm-onboarding-screen {
+  row-gap: 12px;
+}
+
+.gm-onboarding-title {
+  margin-top: 4px;
+}
+
+.gm-onboarding-subtitle {
+  margin-top: 6px;
 }
 
 .gm-tabs {
@@ -140,6 +152,10 @@ body {
   padding: 6px 0;
 }
 
+.gm-onboarding-card .gm-card-row {
+  font-size: 14px;
+}
+
 .gm-card-row-bio .gm-value {
   text-align: right;
   max-width: 65%;
@@ -166,16 +182,20 @@ body {
 .gm-onboarding-logo {
   display: flex;
   justify-content: center;
-  margin-top: 12px;
-  margin-bottom: 8px;
+  margin-top: 10px;
+  margin-bottom: 4px;
 }
 
 .gm-onboarding-logo img {
-  max-width: 120px;
-  width: 40%;
+  max-width: 100px;
+  width: 32%;
   height: auto;
   display: block;
   opacity: 0.9;
+}
+
+.gm-onboarding-actions {
+  margin-top: 12px;
 }
 
 .gm-button,

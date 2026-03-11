@@ -10,15 +10,16 @@ type Props = {
 
 export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete }) => {
   const t = translations[lang].onboarding;
+  const logoSrc = new URL('../logo-full-preview-2.png', import.meta.url).href;
   return (
-    <div className="gm-screen">
+    <div className="gm-screen gm-onboarding-screen">
       <div className="gm-header-row">
         <LangToggle lang={lang} setLang={setLang} />
       </div>
-      <h1 className="gm-title">{t.title}</h1>
-      <p className="gm-subtitle">{t.subtitle}</p>
+      <h1 className="gm-title gm-onboarding-title">{t.title}</h1>
+      <p className="gm-subtitle gm-onboarding-subtitle">{t.subtitle}</p>
 
-      <div className="gm-card">
+      <div className="gm-card gm-onboarding-card">
         <div className="gm-card-row">
           <span className="gm-label">{t.bullet1}</span>
         </div>
@@ -31,10 +32,10 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
       </div>
 
       <div className="gm-onboarding-logo">
-        <img src="/logo-full-preview-2.png" alt="Faceit logo" />
+        <img src={logoSrc} alt="Faceit logo" />
       </div>
 
-      <div className="gm-actions">
+      <div className="gm-actions gm-onboarding-actions">
         <button className="gm-button" onClick={onComplete}>
           {t.start}
         </button>
