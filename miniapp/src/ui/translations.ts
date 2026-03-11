@@ -5,15 +5,15 @@ export const translations = {
     loading: 'Загрузка GGMatch...',
     tabs: {
       discover: 'Поиск',
-      matches: 'Матчи',
+      matches: 'Мэчи',
       profile: 'Профиль',
     },
     onboarding: {
-      title: 'Найди тиммейтов для Faceit прямо в Telegram',
-      subtitle: 'Анонимный подбор по ELO, часам и языку общения',
-      bullet1: 'Подбор по игре',
-      bullet2: 'Фильтр по языку и роли',
-      bullet3: 'После совпадения общение продолжается в Telegram',
+      title: 'Поиск тиммейтов для Faceit',
+      subtitle: 'Найди своих и поднимайся выше',
+      bullet1: 'Анонимно',
+      bullet2: 'Быстро',
+      bullet3: 'Удобно',
       start: 'Начать',
     },
     discover: {
@@ -63,11 +63,11 @@ export const translations = {
       profile: 'Profile',
     },
     onboarding: {
-      title: 'Find Faceit teammates right inside Telegram',
-      subtitle: 'Anonymous matching by ELO, playtime, and language',
-      bullet1: 'Match by game',
-      bullet2: 'Filter by language and role',
-      bullet3: 'After matching, continue communication in Telegram',
+      title: 'Faceit Teammate Search',
+      subtitle: 'Find your team and climb higher',
+      bullet1: 'Anonymous',
+      bullet2: 'Fast',
+      bullet3: 'Simple',
       start: 'Start',
     },
     discover: {

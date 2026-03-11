@@ -163,6 +163,21 @@ body {
   margin-top: 16px;
 }
 
+.gm-onboarding-logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.gm-onboarding-logo img {
+  max-width: 120px;
+  width: 40%;
+  height: auto;
+  display: block;
+  opacity: 0.9;
+}
+
 .gm-button,
 .gm-button-secondary {
   flex: 1;

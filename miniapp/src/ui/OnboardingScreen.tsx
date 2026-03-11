@@ -30,6 +30,10 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
       </div>
 
+      <div className="gm-onboarding-logo">
+        <img src="/logo-full-preview-2.png" alt="Faceit logo" />
+      </div>
+
       <div className="gm-actions">
         <button className="gm-button" onClick={onComplete}>
           {t.start}
