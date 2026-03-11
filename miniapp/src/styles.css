@@ -94,6 +94,14 @@ body {
   min-height: calc(100vh - 120px);
 }
 
+.gm-onboarding-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 12px;
+}
+
 .gm-onboarding-title {
   margin-top: 6px;
   font-size: 22px;
@@ -105,6 +113,25 @@ body {
   margin-top: 8px;
   font-size: 14px;
   color: rgba(148, 163, 184, 0.95);
+}
+
+.gm-onboarding-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.gm-onboarding-tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.9);
+  font-size: 12px;
+  font-weight: 500;
+  color: #e5e7eb;
+  letter-spacing: 0.03em;
 }
 
 .gm-tabs {
@@ -158,11 +185,6 @@ body {
   padding: 6px 0;
 }
 
-.gm-onboarding-card .gm-card-row {
-  font-size: 14px;
-  letter-spacing: 0.01em;
-}
-
 .gm-card-row-bio .gm-value {
   text-align: right;
   max-width: 65%;
@@ -189,13 +211,13 @@ body {
 .gm-onboarding-logo {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 4px;
+  margin-top: 24px;
+  margin-bottom: 10px;
 }
 
 .gm-onboarding-logo img {
-  max-width: 160px;
-  width: 48%;
+  max-width: 220px;
+  width: 60%;
   height: auto;
   display: block;
   opacity: 0.96;
