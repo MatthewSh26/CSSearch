@@ -25,7 +25,7 @@ export const App: React.FC = () => {
   if (!isReady) {
     return (
       <div className="gm-root">
-        <div className="gm-center">Loading GGMatch...</div>
+        <div className="gm-center">Загрузка GGMatch...</div>
       </div>
     );
   }
@@ -57,19 +57,19 @@ export const App: React.FC = () => {
           className={tab === 'discover' ? 'gm-tab gm-tab-active' : 'gm-tab'}
           onClick={() => setTab('discover')}
         >
-          Discover
+          Поиск
         </button>
         <button
           className={tab === 'matches' ? 'gm-tab gm-tab-active' : 'gm-tab'}
           onClick={() => setTab('matches')}
         >
-          Matches
+          Матчи
         </button>
         <button
           className={tab === 'profile' ? 'gm-tab gm-tab-active' : 'gm-tab'}
           onClick={() => setTab('profile')}
         >
-          Profile
+          Профиль
         </button>
       </nav>
     </div>

@@ -20,7 +20,7 @@ const MOCK_PLAYERS: Player[] = [
     role: 'Duelist',
     language: 'EN',
     rank: 'Immortal 2',
-    bio: 'Aggressive entry fragger looking for a coordinated 5-stack.',
+    bio: 'Агрессивный энтри, ищу слаженный состав на 5.',
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const MOCK_PLAYERS: Player[] = [
     role: 'IGL',
     language: 'EN / RU',
     rank: 'Faceit 7',
-    bio: 'Calm shotcaller, prefers structured defaults and mid-round calls.',
+    bio: 'Спокойный каллер, люблю структурированные дефолты и решения в середине раунда.',
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ const MOCK_PLAYERS: Player[] = [
     role: 'Support',
     language: 'EN',
     rank: 'Diamond 1',
-    bio: 'Roaming support, loves vision control and proactive plays.',
+    bio: 'Руминг саппорт, люблю контроль карты и проактивную игру.',
   },
 ];
 
@@ -57,9 +57,9 @@ export const DiscoverScreen: React.FC = () => {
   if (!current) {
     return (
       <div className="gm-screen gm-empty">
-        <h2 className="gm-title">No more players for now</h2>
+        <h2 className="gm-title">Игроки пока закончились</h2>
         <p className="gm-subtitle">
-          Check back later for more teammates.
+          Загляни позже — появятся новые тиммейты.
         </p>
       </div>
     );
@@ -67,36 +67,36 @@ export const DiscoverScreen: React.FC = () => {
 
   return (
     <div className="gm-screen">
-      <h2 className="gm-title">Discover teammates</h2>
+      <h2 className="gm-title">Найди тиммейтов</h2>
       <p className="gm-subtitle">
-        Swipe through potential teammates and build your perfect squad.
+        Здесь будут появляться карточки игроков.
       </p>
 
       <div className="gm-card">
         <div className="gm-card-row">
-          <span className="gm-label">Name</span>
+          <span className="gm-label">Имя</span>
           <span className="gm-value">
             {current.name}, {current.age}
           </span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Game</span>
+          <span className="gm-label">Игра</span>
           <span className="gm-value">{current.game}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Role</span>
+          <span className="gm-label">Роль</span>
           <span className="gm-value">{current.role}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Language</span>
+          <span className="gm-label">Язык</span>
           <span className="gm-value">{current.language}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Rank</span>
+          <span className="gm-label">Ранг</span>
           <span className="gm-value">{current.rank}</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Bio</span>
+          <span className="gm-label">О себе</span>
           <span className="gm-value">{current.bio}</span>
         </div>
       </div>
@@ -107,14 +107,14 @@ export const DiscoverScreen: React.FC = () => {
           className="gm-button-secondary"
           onClick={goNext}
         >
-          Skip
+          Пропустить
         </button>
         <button
           type="button"
           className="gm-button"
           onClick={goNext}
         >
-          Like
+          Лайк
         </button>
       </div>
     </div>

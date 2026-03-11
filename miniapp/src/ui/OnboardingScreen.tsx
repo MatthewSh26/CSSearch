@@ -7,26 +7,26 @@ type Props = {
 export const OnboardingScreen: React.FC<Props> = ({ onComplete }) => {
   return (
     <div className="gm-screen">
-      <h1 className="gm-title">Welcome to GGMatch</h1>
+      <h1 className="gm-title">Добро пожаловать в GGMatch</h1>
       <p className="gm-subtitle">
-        Find teammates for your favorite games right inside Telegram.
+        Находите тиммейтов для любимых игр прямо в Telegram.
       </p>
 
       <div className="gm-card">
         <div className="gm-card-row">
-          <span className="gm-label">Match by game</span>
+          <span className="gm-label">Подбор по игре</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Filter by language and role</span>
+          <span className="gm-label">Фильтр по языку и роли</span>
         </div>
         <div className="gm-card-row">
-          <span className="gm-label">Connect instantly in Telegram</span>
+          <span className="gm-label">Мгновенная связь в Telegram</span>
         </div>
       </div>
 
       <div className="gm-actions">
         <button className="gm-button" onClick={onComplete}>
-          Start
+          Начать
         </button>
       </div>
     </div>

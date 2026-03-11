@@ -28,27 +28,27 @@ const MOCK_MATCHES: Match[] = [
 export const MatchesScreen: React.FC = () => {
   return (
     <div className="gm-screen">
-      <h2 className="gm-title">Your matches</h2>
+      <h2 className="gm-title">Твои матчи</h2>
       <p className="gm-subtitle">
-        Players who liked you back will appear here.
+        Здесь будут появляться совпадения и переходы в Telegram.
       </p>
 
       {MOCK_MATCHES.map((match) => (
         <div key={match.id} className="gm-card">
           <div className="gm-card-row">
-            <span className="gm-label">Name</span>
+            <span className="gm-label">Имя</span>
             <span className="gm-value">{match.name}</span>
           </div>
           <div className="gm-card-row">
-            <span className="gm-label">Game</span>
+            <span className="gm-label">Игра</span>
             <span className="gm-value">{match.game}</span>
           </div>
           <div className="gm-card-row">
-            <span className="gm-label">Role</span>
+            <span className="gm-label">Роль</span>
             <span className="gm-value">{match.role}</span>
           </div>
           <div className="gm-card-row">
-            <span className="gm-label">Language</span>
+            <span className="gm-label">Язык</span>
             <span className="gm-value">{match.language}</span>
           </div>
 
@@ -57,7 +57,7 @@ export const MatchesScreen: React.FC = () => {
               type="button"
               className="gm-button"
             >
-              Open Telegram
+              Открыть Telegram
             </button>
           </div>
         </div>
