@@ -115,23 +115,23 @@ body {
   color: rgba(148, 163, 184, 0.95);
 }
 
-.gm-onboarding-tags {
+.gm-onboarding-benefits {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
   justify-content: center;
-  margin-top: 16px;
+  gap: 20px;
+  margin-top: 32px;
+  font-size: 15px;
 }
 
-.gm-onboarding-tag {
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(75, 85, 99, 0.9);
-  font-size: 12px;
-  font-weight: 500;
-  color: #e5e7eb;
-  letter-spacing: 0.03em;
+.gm-onboarding-benefit {
+  color: rgba(209, 213, 219, 0.95);
+}
+
+.gm-onboarding-dot {
+  color: #f97316;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .gm-tabs {

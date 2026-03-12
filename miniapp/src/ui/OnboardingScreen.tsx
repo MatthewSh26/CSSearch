@@ -49,10 +49,16 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
           <h1 className="gm-title gm-onboarding-title">{t.title}</h1>
           <p className="gm-subtitle gm-onboarding-subtitle">{t.subtitle}</p>
 
-          <div className="gm-onboarding-tags">
-            <span className="gm-onboarding-tag">{t.bullet1}</span>
-            <span className="gm-onboarding-tag">{t.bullet2}</span>
-            <span className="gm-onboarding-tag">{t.bullet3}</span>
+          <div className="gm-onboarding-benefits">
+            <span className="gm-onboarding-benefit">{t.bullet1}</span>
+            <span className="gm-onboarding-dot" aria-hidden="true">
+              •
+            </span>
+            <span className="gm-onboarding-benefit">{t.bullet2}</span>
+            <span className="gm-onboarding-dot" aria-hidden="true">
+              •
+            </span>
+            <span className="gm-onboarding-benefit">{t.bullet3}</span>
           </div>
         </div>
 
