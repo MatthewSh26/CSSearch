@@ -124,11 +124,11 @@ body {
 }
 
 .gm-onboarding-tag {
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(75, 85, 99, 0.9);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: #e5e7eb;
   letter-spacing: 0.03em;
@@ -208,23 +208,8 @@ body {
   margin-top: 16px;
 }
 
-.gm-onboarding-logo {
-  display: flex;
-  justify-content: center;
-  margin-top: 28px;
-  margin-bottom: 16px;
-}
-
-.gm-onboarding-logo img {
-  max-width: 260px;
-  width: 68%;
-  height: auto;
-  display: block;
-  opacity: 0.96;
-}
-
 .gm-onboarding-actions {
-  margin-top: 0;
+  margin-top: 32px;
   margin-bottom: 12px;
 }
 
@@ -238,6 +223,73 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: transform 0.08s ease, opacity 0.15s ease;
+}
+
+.gm-onboarding-step {
+  margin-top: 32px;
+}
+
+.gm-step-label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: rgba(148, 163, 184, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.gm-step-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+.gm-step-subtitle {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: rgba(156, 163, 175, 0.9);
+}
+
+.gm-option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.gm-option {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 14px;
+  text-align: left;
+}
+
+.gm-option-active {
+  border-color: #f97316;
+  background: rgba(248, 113, 22, 0.08);
+}
+
+.gm-input {
+  margin-top: 16px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+.gm-input::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.gm-step-actions {
+  margin-top: 20px;
 }
 
 .gm-button {
