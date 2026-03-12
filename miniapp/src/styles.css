@@ -176,6 +176,11 @@ body {
   padding: 16px;
 }
 
+.gm-discover-swipe {
+  cursor: grab;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
 .gm-card-row {
   display: flex;
   justify-content: space-between;
@@ -288,10 +293,24 @@ body {
   color: rgba(148, 163, 184, 0.9);
 }
 
+.gm-textarea {
+  min-height: 72px;
+  resize: vertical;
+}
 .gm-step-actions {
   margin-top: 20px;
 }
 
+.gm-error {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #f97316;
+}
+.gm-helper {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(148, 163, 184, 0.9);
+}
 .gm-button {
   background: #f97316;
   color: #0b1120;
@@ -302,6 +321,17 @@ body {
   background: rgba(30, 41, 59, 0.9);
   color: rgba(226, 232, 240, 0.9);
   border: 1px solid rgba(75, 85, 99, 0.8);
+}
+
+.gm-link-button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.gm-refresh-icon {
+  margin-right: 6px;
+  font-size: 14px;
 }
 
 .gm-button:active,

@@ -1,43 +1,41 @@
 import React, { useState, ChangeEvent } from 'react';
 import { LangToggle } from './LangToggle';
 import { translations, type Lang } from './translations';
+import type {
+  Mode,
+  GameGoalKey,
+  LanguagePref,
+  UserProfile,
+} from './profileTypes';
 
 type Props = {
   lang: Lang;
   setLang: (lang: Lang) => void;
-  onComplete: () => void;
+  onComplete: (profile: UserProfile) => void;
 };
 
 type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete }) => {
   const [step, setStep] = useState<Step>(0);
-  const [role, setRole] = useState<string | null>(null);
-  const [elo, setElo] = useState('');
-  const [languagePref, setLanguagePref] = useState<string | null>(null);
-  const [goal, setGoal] = useState<string | null>(null);
-  const [profileLink, setProfileLink] = useState('');
+  const [mode, setMode] = useState<Mode | null>(null);
+  const [goal, setGoal] = useState<GameGoalKey | null>(null);
+  const [ratingValue, setRatingValue] = useState('');
+  const [languagePref, setLanguagePref] = useState<LanguagePref | null>(null);
+  const [telegram, setTelegram] = useState('');
+  const [ratingError, setRatingError] = useState<string | null>(null);
+  const [telegramError, setTelegramError] = useState<string | null>(null);
 
   const t = translations[lang].onboarding;
 
-  const next = () => {
-    setStep((current) => (current < 6 ? ((current + 1) as Step) : current));
-  };
-
-  const handleEloChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setElo(event.target.value);
-  };
-
-  const handleProfileLinkChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setProfileLink(event.target.value);
-  };
+  const totalSteps = 5;
 
   const stepLabel =
-    step === 0
+    step === 0 || step === 6
       ? ''
       : lang === 'ru'
-      ? `Шаг ${step} из 6`
-      : `Step ${step} of 6`;
+      ? `Шаг ${step} из ${totalSteps}`
+      : `Step ${step} of ${totalSteps}`;
 
   if (step === 0) {
     return (
@@ -63,7 +61,11 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
 
         <div className="gm-actions gm-onboarding-actions">
-          <button className="gm-button" onClick={next}>
+          <button
+            className="gm-button"
+            onClick={() => setStep(1)}
+            type="button"
+          >
             {t.start}
           </button>
         </div>
@@ -79,23 +81,27 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
         <div className="gm-onboarding-step">
           <p className="gm-step-label">{stepLabel}</p>
-          <h2 className="gm-step-title">{t.roleTitle}</h2>
-          <p className="gm-step-subtitle">{t.roleSubtitle}</p>
+          <h2 className="gm-step-title">{t.modeTitle}</h2>
+          <p className="gm-step-subtitle">{t.modeSubtitle}</p>
 
           <div className="gm-option-list">
-            {(['entry', 'support', 'sniper', 'flexible'] as const).map((key) => (
+            {(['faceit', 'mm', 'fun'] as Mode[]).map((key) => (
               <button
                 key={key}
                 type="button"
                 className={
-                  role === key ? 'gm-option gm-option-active' : 'gm-option'
+                  mode === key ? 'gm-option gm-option-active' : 'gm-option'
                 }
                 onClick={() => {
-                  setRole(key);
-                  next();
+                  setMode(key);
+                  if (key === 'fun') {
+                    setStep(4);
+                  } else {
+                    setStep(2);
+                  }
                 }}
               >
-                {t.roles[key]}
+                {t.modes[key]}
               </button>
             ))}
           </div>
@@ -112,21 +118,25 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
         <div className="gm-onboarding-step">
           <p className="gm-step-label">{stepLabel}</p>
-          <h2 className="gm-step-title">{t.eloTitle}</h2>
-          <p className="gm-step-subtitle">{t.eloSubtitle}</p>
+          <h2 className="gm-step-title">{t.goalTitle}</h2>
+          <p className="gm-step-subtitle">{t.goalSubtitle}</p>
 
-          <input
-            type="number"
-            className="gm-input"
-            value={elo}
-            onChange={handleEloChange}
-            placeholder={t.eloPlaceholder}
-          />
-
-          <div className="gm-actions gm-step-actions">
-            <button className="gm-button" type="button" onClick={next}>
-              {lang === 'ru' ? 'Далее' : 'Next'}
-            </button>
+          <div className="gm-option-list">
+            {(['rating', 'fun'] as GameGoalKey[]).map((key) => (
+              <button
+                key={key}
+                type="button"
+                className={
+                  goal === key ? 'gm-option gm-option-active' : 'gm-option'
+                }
+                onClick={() => {
+                  setGoal(key);
+                  setStep(3);
+                }}
+              >
+                {t.goals[key]}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -141,27 +151,63 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
         <div className="gm-onboarding-step">
           <p className="gm-step-label">{stepLabel}</p>
-          <h2 className="gm-step-title">{t.languageTitle}</h2>
-          <p className="gm-step-subtitle">{t.languageSubtitle}</p>
+          <h2 className="gm-step-title">
+            {mode === 'mm' ? t.ratingTitleMm : t.ratingTitleFaceit}
+          </h2>
+          <p className="gm-step-subtitle">
+            {mode === 'mm'
+              ? ''
+              : ''}
+          </p>
 
-          <div className="gm-option-list">
-            {(['ru', 'en', 'both'] as const).map((key) => (
-              <button
-                key={key}
-                type="button"
-                className={
-                  languagePref === key
-                    ? 'gm-option gm-option-active'
-                    : 'gm-option'
+          <input
+            type="number"
+            className="gm-input"
+            value={ratingValue}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setRatingValue(e.target.value)
+            }
+            placeholder={
+              mode === 'mm'
+                ? t.ratingPlaceholderMm
+                : t.ratingPlaceholderFaceit
+            }
+          />
+
+          <p className="gm-helper">{t.ratingHelper}</p>
+
+          {ratingError && <p className="gm-error">{ratingError}</p>}
+
+          <div className="gm-actions gm-step-actions">
+            <button
+              className="gm-button"
+              type="button"
+              onClick={() => {
+                const trimmed = ratingValue.trim();
+                if (!trimmed) {
+                  setRatingError(
+                    lang === 'ru'
+                      ? mode === 'mm'
+                        ? 'CS Rating обязателен'
+                        : 'ELO обязателен'
+                      : mode === 'mm'
+                      ? 'CS Rating is required'
+                      : 'ELO is required'
+                  );
+                  return;
                 }
-                onClick={() => {
-                  setLanguagePref(key);
-                  next();
-                }}
-              >
-                {t.languages[key]}
-              </button>
-            ))}
+                if (Number.isNaN(Number(trimmed))) {
+                  setRatingError(
+                    lang === 'ru' ? 'Введите число' : 'Enter a number'
+                  );
+                  return;
+                }
+                setRatingError(null);
+                setStep(4);
+              }}
+            >
+              {lang === 'ru' ? 'Далее' : 'Next'}
+            </button>
           </div>
         </div>
       </div>
@@ -176,27 +222,27 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
         <div className="gm-onboarding-step">
           <p className="gm-step-label">{stepLabel}</p>
-          <h2 className="gm-step-title">{t.goalTitle}</h2>
-          <p className="gm-step-subtitle">{t.goalSubtitle}</p>
+          <h2 className="gm-step-title">{t.languageTitle}</h2>
+          <p className="gm-step-subtitle">{t.languageSubtitle}</p>
 
           <div className="gm-option-list">
-            {(['climb', 'stackTonight', 'chill', 'serious'] as const).map(
-              (key) => (
-                <button
-                  key={key}
-                  type="button"
-                  className={
-                    goal === key ? 'gm-option gm-option-active' : 'gm-option'
-                  }
-                  onClick={() => {
-                    setGoal(key);
-                    next();
-                  }}
-                >
-                  {t.goals[key]}
-                </button>
-              )
-            )}
+            {(['ru', 'en', 'both'] as LanguagePref[]).map((key) => (
+              <button
+                key={key}
+                type="button"
+                className={
+                  languagePref === key
+                    ? 'gm-option gm-option-active'
+                    : 'gm-option'
+                }
+                onClick={() => {
+                  setLanguagePref(key);
+                  setStep(5);
+                }}
+              >
+                {t.languages[key]}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -211,27 +257,48 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         </div>
         <div className="gm-onboarding-step">
           <p className="gm-step-label">{stepLabel}</p>
-          <h2 className="gm-step-title">{t.linkTitle}</h2>
-          <p className="gm-step-subtitle">{t.linkSubtitle}</p>
+          <h2 className="gm-step-title">{t.telegramTitle}</h2>
+          <p className="gm-step-subtitle">{t.telegramSubtitle}</p>
 
           <input
-            type="url"
+            type="text"
             className="gm-input"
-            value={profileLink}
-            onChange={handleProfileLinkChange}
-            placeholder={t.linkPlaceholder}
+            value={telegram}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setTelegram(e.target.value)
+            }
+            placeholder={t.telegramPlaceholder}
           />
+
+          {telegramError && <p className="gm-error">{telegramError}</p>}
 
           <div className="gm-actions gm-step-actions">
             <button
-              className="gm-button-secondary"
+              className="gm-button"
               type="button"
-              onClick={next}
+              onClick={() => {
+                const value = telegram.trim();
+                if (!value) {
+                  setTelegramError(
+                    lang === 'ru'
+                      ? 'Укажите Telegram username'
+                      : 'Enter your Telegram username'
+                  );
+                  return;
+                }
+                if (!value.startsWith('@')) {
+                  setTelegramError(
+                    lang === 'ru'
+                      ? 'Username должен начинаться с @'
+                      : 'Username must start with @'
+                  );
+                  return;
+                }
+                setTelegramError(null);
+                setStep(6);
+              }}
             >
-              {lang === 'ru' ? 'Пропустить' : 'Skip'}
-            </button>
-            <button className="gm-button" type="button" onClick={next}>
-              {lang === 'ru' ? 'Далее' : 'Next'}
+              {lang === 'ru' ? 'Завершить' : 'Finish'}
             </button>
           </div>
         </div>
@@ -250,7 +317,21 @@ export const OnboardingScreen: React.FC<Props> = ({ lang, setLang, onComplete })
         <p className="gm-step-subtitle">{t.finishSubtitle}</p>
 
         <div className="gm-actions gm-step-actions">
-          <button className="gm-button" type="button" onClick={onComplete}>
+          <button
+            className="gm-button"
+            type="button"
+            onClick={() =>
+              onComplete({
+                mode: mode ?? 'faceit',
+                goal: goal ?? undefined,
+                ratingType:
+                  mode === 'mm' ? 'cs' : mode === 'faceit' ? 'elo' : undefined,
+                ratingValue: ratingValue || undefined,
+                language: languagePref ?? 'ru',
+                telegramUsername: telegram.trim().replace(/^@/, ''),
+              })
+            }
+          >
             {t.finishCta}
           </button>
         </div>

@@ -6,6 +6,7 @@ import { MatchesScreen } from './MatchesScreen';
 import { ProfileScreen } from './ProfileScreen';
 import { LangToggle } from './LangToggle';
 import { translations, type Lang } from './translations';
+import type { UserProfile } from './profileTypes';
 
 type Tab = 'discover' | 'matches' | 'profile';
 
@@ -14,6 +15,7 @@ export const App: React.FC = () => {
   const [isOnboarding, setIsOnboarding] = useState(true);
   const [tab, setTab] = useState<Tab>('discover');
   const [lang, setLang] = useState<Lang>('ru');
+  const [profile, setProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
     initTelegramSdk()
@@ -41,7 +43,10 @@ export const App: React.FC = () => {
           <OnboardingScreen
             lang={lang}
             setLang={setLang}
-            onComplete={() => setIsOnboarding(false)}
+            onComplete={(p) => {
+              setProfile(p);
+              setIsOnboarding(false);
+            }}
           />
         </div>
       </div>
@@ -57,7 +62,15 @@ export const App: React.FC = () => {
         </div>
         {tab === 'discover' && <DiscoverScreen lang={lang} />}
         {tab === 'matches' && <MatchesScreen lang={lang} />}
-        {tab === 'profile' && <ProfileScreen lang={lang} />}
+        {tab === 'profile' && (
+          <ProfileScreen
+            lang={lang}
+            profile={profile}
+            onProfileChange={(patch) =>
+              setProfile((prev) => (prev ? { ...prev, ...patch } : prev))
+            }
+          />
+        )}
       </div>
 
       <nav className="gm-tabs">
